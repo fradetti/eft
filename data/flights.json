@@ -18,5 +18,15 @@
     "status": "Delayed",
     "origin": "NCE",
     "destination": "DXB"
+  },
+  {
+    "date": "2026-03-11",
+    "flight": "EK705",
+    "scheduled_departure": "2026-03-11 02:40+04:00",
+    "actual_departure": "",
+    "delay_minutes": null,
+    "status": "Departed",
+    "origin": "DXB",
+    "destination": "SEZ"
   }
 ]
