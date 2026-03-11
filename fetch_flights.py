@@ -95,7 +95,10 @@ def main():
         print("ERROR: RAPIDAPI_KEY environment variable not set.")
         sys.exit(1)
 
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if len(sys.argv) > 1:
+        today = sys.argv[1]
+    else:
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     print(f"Fetching flights for {today}...")
 
     existing = load_existing_data()
