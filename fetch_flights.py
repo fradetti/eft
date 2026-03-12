@@ -65,6 +65,12 @@ def parse_flight_data(raw_flights, flight_number, date_str):
 
         # Score for picking the best candidate
         score = 0
+        # For EK708, we want the SEZ→DXB leg (API returns SEZ with empty dest)
+        if flight_number == "EK708" and origin_code == "SEZ":
+            score += 20
+            dest_code = dest_code or "DXB"
+        elif flight_number == "EK708" and origin_code != "SEZ":
+            score -= 20
         # Prefer entries whose scheduled departure matches the query date
         if scheduled_local.startswith(date_str):
             score += 10
