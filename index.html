@@ -254,17 +254,20 @@ function getFilteredData() {
 }
 
 function renderStats() {
-  const data = allData.filter(r => r.delay_minutes !== null && r.delay_minutes !== undefined);
-  const total = data.length;
-  const onTime = data.filter(r => r.delay_minutes < 15).length;
-  const avgDelay = total ? (data.reduce((s, r) => s + r.delay_minutes, 0) / total).toFixed(0) : '—';
-  const onTimePct = total ? ((onTime / total) * 100).toFixed(0) : '—';
+  const withDelay = allData.filter(r => r.delay_minutes !== null && r.delay_minutes !== undefined);
+  const hasDelayData = withDelay.length > 0;
+  const onTime = withDelay.filter(r => r.delay_minutes < 15).length;
+  const avgDelay = hasDelayData ? (withDelay.reduce((s, r) => s + r.delay_minutes, 0) / withDelay.length).toFixed(0) + ' min' : '—';
+  const onTimePct = hasDelayData ? ((onTime / withDelay.length) * 100).toFixed(0) + '%' : '—';
   const cancelled = allData.filter(r => r.status && r.status.toLowerCase().includes('cancel')).length;
+  const arrived = allData.filter(r => r.status && r.status.toLowerCase().includes('arrived')).length;
+  const departed = allData.filter(r => r.status && r.status.toLowerCase().includes('departed')).length;
 
   document.getElementById('globalStats').innerHTML = `
-    <div class="stat-card"><div class="label">Total flights tracked</div><div class="value">${allData.length}</div></div>
-    <div class="stat-card"><div class="label">On-time rate (&lt;15min)</div><div class="value">${onTimePct}%</div></div>
-    <div class="stat-card"><div class="label">Avg delay</div><div class="value">${avgDelay} min</div></div>
+    <div class="stat-card"><div class="label">Flights tracked</div><div class="value">${allData.length}</div></div>
+    <div class="stat-card"><div class="label">Arrived</div><div class="value">${arrived}</div></div>
+    <div class="stat-card"><div class="label">Departed</div><div class="value">${departed}</div></div>
+    <div class="stat-card"><div class="label">Avg delay</div><div class="value">${avgDelay}</div></div>
     <div class="stat-card"><div class="label">Cancelled</div><div class="value">${cancelled}</div></div>
   `;
 
@@ -272,22 +275,28 @@ function renderStats() {
   const flights = ['EK78', 'EK705', 'EK708', 'EK77'];
   let flightHtml = '';
   for (const fn of flights) {
-    const fd = data.filter(r => r.flight === fn);
-    const ft = fd.length;
+    const fa = allData.filter(r => r.flight === fn);
+    const ft = fa.length;
+    if (ft === 0) continue;
+
+    const fd = withDelay.filter(r => r.flight === fn);
+    const fdt = fd.length;
     const fOnTime = fd.filter(r => r.delay_minutes < 15).length;
-    const fAvg = ft ? (fd.reduce((s, r) => s + r.delay_minutes, 0) / ft).toFixed(0) : '—';
-    const fMax = ft ? Math.max(...fd.map(r => r.delay_minutes)) : '—';
-    const fPct = ft ? ((fOnTime / ft) * 100).toFixed(0) : '—';
-    const route = allData.find(r => r.flight === fn);
+    const fAvg = fdt ? (fd.reduce((s, r) => s + r.delay_minutes, 0) / fdt).toFixed(0) + ' min' : '—';
+    const fMax = fdt ? Math.max(...fd.map(r => r.delay_minutes)) + ' min' : '—';
+    const fPct = fdt ? ((fOnTime / fdt) * 100).toFixed(0) + '%' : '—';
+    const fArrived = fa.filter(r => r.status && r.status.toLowerCase().includes('arrived')).length;
+    const route = fa[0];
     const routeStr = route ? `${route.origin} → ${route.destination}` : '';
 
     flightHtml += `
       <div class="flight-stat-card">
         <h3>${fn} <span style="font-weight:400;font-size:0.85rem;color:#666">${routeStr}</span></h3>
-        <div class="stat-row"><span>Flights tracked</span><span class="val">${ft}</span></div>
-        <div class="stat-row"><span>On-time rate</span><span class="val">${fPct}%</span></div>
-        <div class="stat-row"><span>Avg delay</span><span class="val">${fAvg} min</span></div>
-        <div class="stat-row"><span>Max delay</span><span class="val">${fMax} min</span></div>
+        <div class="stat-row"><span>Days tracked</span><span class="val">${ft}</span></div>
+        <div class="stat-row"><span>Arrived</span><span class="val">${fArrived}</span></div>
+        <div class="stat-row"><span>On-time rate</span><span class="val">${fPct}</span></div>
+        <div class="stat-row"><span>Avg delay</span><span class="val">${fAvg}</span></div>
+        <div class="stat-row"><span>Max delay</span><span class="val">${fMax}</span></div>
       </div>
     `;
   }

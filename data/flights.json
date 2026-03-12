@@ -22,16 +22,6 @@
   {
     "date": "2026-03-11",
     "flight": "EK78",
-    "scheduled_departure": "2026-03-10 14:30+01:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Arrived",
-    "origin": "NCE",
-    "destination": "DXB"
-  },
-  {
-    "date": "2026-03-11",
-    "flight": "EK78",
     "scheduled_departure": "2026-03-11 14:30+01:00",
     "actual_departure": "",
     "delay_minutes": null,
@@ -61,16 +51,6 @@
   },
   {
     "date": "2026-03-11",
-    "flight": "EK708",
-    "scheduled_departure": "2026-03-11 23:50+04:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Unknown",
-    "origin": "SEZ",
-    "destination": ""
-  },
-  {
-    "date": "2026-03-11",
     "flight": "EK705",
     "scheduled_departure": "2026-03-11 02:40+04:00",
     "actual_departure": "",
@@ -78,16 +58,6 @@
     "status": "Departed",
     "origin": "DXB",
     "destination": "SEZ"
-  },
-  {
-    "date": "2026-03-10",
-    "flight": "EK78",
-    "scheduled_departure": "2026-03-09 14:30+01:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Arrived",
-    "origin": "NCE",
-    "destination": "DXB"
   },
   {
     "date": "2026-03-10",
@@ -121,16 +91,6 @@
   },
   {
     "date": "2026-03-10",
-    "flight": "EK708",
-    "scheduled_departure": "2026-03-10 23:50+04:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Unknown",
-    "origin": "SEZ",
-    "destination": ""
-  },
-  {
-    "date": "2026-03-10",
     "flight": "EK705",
     "scheduled_departure": "2026-03-10 02:40+04:00",
     "actual_departure": "",
@@ -138,16 +98,6 @@
     "status": "Departed",
     "origin": "DXB",
     "destination": "SEZ"
-  },
-  {
-    "date": "2026-03-09",
-    "flight": "EK78",
-    "scheduled_departure": "2026-03-08 14:30+01:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Arrived",
-    "origin": "NCE",
-    "destination": "DXB"
   },
   {
     "date": "2026-03-09",
@@ -218,16 +168,6 @@
     "status": "Unknown",
     "origin": "TNR",
     "destination": "SEZ"
-  },
-  {
-    "date": "2026-03-08",
-    "flight": "EK708",
-    "scheduled_departure": "2026-03-08 23:50+04:00",
-    "actual_departure": "",
-    "delay_minutes": null,
-    "status": "Unknown",
-    "origin": "SEZ",
-    "destination": ""
   },
   {
     "date": "2026-03-08",

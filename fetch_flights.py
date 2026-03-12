@@ -26,8 +26,13 @@ def fetch_flight(flight_number, date_str):
 
 
 def parse_flight_data(raw_flights, flight_number, date_str):
-    """Parse API response into our simplified format."""
-    results = []
+    """Parse API response into a single best entry per flight/date.
+
+    The API often returns multiple results (previous day's flight, multiple legs).
+    We pick the best one: prefer matching scheduled date, then actual data, then
+    most informative status.
+    """
+    candidates = []
     for flight in raw_flights:
         departure = flight.get("departure", {})
         arrival = flight.get("arrival", {})
@@ -58,7 +63,22 @@ def parse_flight_data(raw_flights, flight_number, date_str):
         origin_code = departure.get("airport", {}).get("iata", "")
         dest_code = arrival.get("airport", {}).get("iata", "")
 
-        results.append({
+        # Score for picking the best candidate
+        score = 0
+        # Prefer entries whose scheduled departure matches the query date
+        if scheduled_local.startswith(date_str):
+            score += 10
+        # Prefer entries with actual departure data
+        if actual_local:
+            score += 5
+        # Prefer entries with known status
+        if status not in ("Unknown", ""):
+            score += 2
+        # Prefer entries with a destination
+        if dest_code:
+            score += 1
+
+        candidates.append((score, {
             "date": date_str,
             "flight": flight_number,
             "scheduled_departure": scheduled_local,
@@ -67,9 +87,14 @@ def parse_flight_data(raw_flights, flight_number, date_str):
             "status": status,
             "origin": origin_code,
             "destination": dest_code,
-        })
+        }))
 
-    return results
+    if not candidates:
+        return []
+
+    # Return only the best candidate
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    return [candidates[0][1]]
 
 
 def load_existing_data():
