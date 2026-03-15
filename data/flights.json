@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-03-15",
+    "flight": "EK78",
+    "scheduled_departure": "2026-03-15 14:30+01:00",
+    "actual_departure": "",
+    "delay_minutes": null,
+    "status": "Expected",
+    "origin": "NCE",
+    "destination": "DXB"
+  },
+  {
     "date": "2026-03-14",
     "flight": "EK78",
     "scheduled_departure": "2026-03-14 14:30+01:00",
