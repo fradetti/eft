@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-05-04",
+    "flight": "EK78",
+    "scheduled_departure": "2026-05-04 15:50+02:00",
+    "actual_departure": "",
+    "delay_minutes": null,
+    "status": "Delayed",
+    "origin": "NCE",
+    "destination": "DXB"
+  },
+  {
+    "date": "2026-05-04",
+    "flight": "EK77",
+    "scheduled_departure": "2026-05-04 11:45+04:00",
+    "actual_departure": "2026-05-04 12:11+04:00",
+    "delay_minutes": 26,
+    "status": "Departed",
+    "origin": "DXB",
+    "destination": "NCE"
+  },
+  {
+    "date": "2026-05-04",
+    "flight": "EK708",
+    "scheduled_departure": "",
+    "actual_departure": "",
+    "delay_minutes": null,
+    "status": "Arrived",
+    "origin": "SEZ",
+    "destination": "DXB"
+  },
+  {
     "date": "2026-05-03",
     "flight": "EK78",
     "scheduled_departure": "2026-05-03 15:50+02:00",
